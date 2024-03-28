@@ -7,7 +7,7 @@ module System.IO.BufferedOutput.BufferedOutput
     , openBufferedOutputStdout
     , openBufferedOutputStderr
     , toBufOutStr
-    , defaultBufSize
+    , defaultBufferedOutputSize
     , closeBufferedOutput
     , pushBufferedOutStr
     , pushBufferedOutStrLn
@@ -40,9 +40,9 @@ data OutBuf = OutBuf !BufSize (MVar Buffer) (IORef BufferedOutStr)
 data BufferedOutput = BufferedOutput (Maybe FilePath) (IORef FD) OutBuf (IO ())
 
 
--- | The default buffer size (4,096 bytes).
-defaultBufSize :: BufSize
-defaultBufSize = 4096
+-- | The default buffer size (1 MB).
+defaultBufferedOutputSize :: BufSize
+defaultBufferedOutputSize = 1000 * 1024
 
 
 newOutBuf :: BufSize -> IO OutBuf
